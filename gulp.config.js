@@ -41,6 +41,10 @@ module.exports = function() {
             sourceDir + '/**/*.js',
             rootDir + '/*.js'
         ],
+        
+        specs: [
+            sourceDir + '/**/*.spec.js'
+        ],
 
         jsxFiles: [
             clientDir + '/scripts/script.js'

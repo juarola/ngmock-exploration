@@ -92,6 +92,11 @@ function startBrowserSync(isDev) {
             .on('change', function(ev) {
                 changeEvent(ev);
             });
+            
+        gulp.watch(config.specs)
+            .on('change', function(ev) {
+                changeEvent(ev);
+            });
     } else {
         gulp.watch([config.less, config.jsfiles], ['optimize', browserSync.reload])
             .on('change', function(ev) {
@@ -107,7 +112,9 @@ function startBrowserSync(isDev) {
             '!' + config.less,
             '!' + config.jsxFiles,
             config.temp + '/*.js',
-            config.temp + '/*.css'
+            config.temp + '/*.css',
+            '**/*.spec.js',
+            'src/*.js'
         ] : [],
         ghostMode: {
             clicks: true,
