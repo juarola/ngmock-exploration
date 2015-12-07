@@ -19,9 +19,6 @@ describe('omdb service', function () {
 		var response;
 
 		var expectedUrl = 'http://www.omdbapi.com/?v=1&s=star%20wars';
-		// var expectedUrl = function (url) {
-		// 	return url.indexOf('http://www.ombdbapi.com') !== -1;
-		// };
 
 		$httpBackend.when('GET', expectedUrl)
 			.respond(200, movieData);
@@ -33,7 +30,6 @@ describe('omdb service', function () {
 
 		$httpBackend.flush();
 
-		// expect(omdbApi.search('star wars')).toEqual(movieData);
 		expect(response).toEqual(movieData);
 	});
 
@@ -52,7 +48,6 @@ describe('omdb service', function () {
 
 		$httpBackend.flush();
 
-		// expect(omdbApi.find('tt0076759')).toEqual(movieDataById);
 		expect(response).toEqual(movieDataById);
 	});
 });
