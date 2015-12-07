@@ -14,6 +14,29 @@ describe('omdb service', function () {
 		$httpBackend = _$httpBackend_;
 	}));
 
+	it('should handle error', function () {
+		var response;
+
+		var errorMsg = 'Error!';
+
+		var expectedUrl = 'http://www.omdbapi.com/?v=1&i=tt0076759';
+
+		$httpBackend.expect('GET', expectedUrl)
+			.respond(500);
+ 
+		omdbApi.find('tt0076759')
+			.then(function (data) {
+				response = data;
+			})
+			.catch(function () {
+				response = errorMsg;
+			});
+
+		$httpBackend.flush();
+
+		expect(response).toEqual(errorMsg);
+	});
+
 	it('should return movie search data', function () {
 
 		var response;

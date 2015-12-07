@@ -10,6 +10,9 @@ angular.module('omdb').factory('omdbApi', function ($http, $q) {
 		$http.get(url)
 			.success(function (data) {
 				deferred.resolve(data);
+			})
+			.error(function(){
+				deferred.reject();
 			});
 
 		return deferred.promise;
