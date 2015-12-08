@@ -12,12 +12,13 @@ describe('MovieCore', function () {
 
 	afterEach(function () {
 		$httpBackend.verifyNoOutstandingExpectation();
+		$httpBackend.verifyNoOutstandingRequest();
 	});
 
 	it('Should create pupular movie', function () {
 
 		var expectedData = function (data) {
-			dump(angular.mock.dump(data));
+			// dump(angular.mock.dump(data));
 			// return true;
 			return angular.fromJson(data).movieId === 'tt0076759';
 		};
@@ -57,6 +58,46 @@ describe('MovieCore', function () {
 			description: 'great movie!'
 		});
 		popularMovei.$update();
+		expect($httpBackend.flush).not.toThrow();
+	});
+
+	it('should authenticate requests', function () {
+
+		var expectedHeaders = function (headers) {
+			// dump('headers:')
+			// dump(angular.mock.dump(headers));
+			// return true;
+			return angular.fromJson(headers).authToken === 'teddy_bear';
+		};
+
+		var matchAny = /.*/;
+
+		var headerData = function (headers) {
+			return headers.authToken === 'teddy_bear';
+		}
+
+		// $httpBackend.expectGET('popular/tt0076759', expectedHeaders)
+		// 	.respond(200);
+		$httpBackend.whenGET(matchAny, headerData)
+			.respond(200);
+
+		$httpBackend.expectPOST(matchAny, matchAny, headerData)
+			.respond(200);
+
+		$httpBackend.expectPUT(matchAny, matchAny, headerData)
+			.respond(200);
+
+		$httpBackend.expectDELETE(matchAny, headerData)
+			.respond(200);
+
+		var popularMovie = { id: 'tt0076759', descrption: 'this is a great movie!' };
+
+		PopularMovies.query();
+		PopularMovies.get();
+		new PopularMovies(popularMovie).$save();
+		new PopularMovies(popularMovie).$update();
+		new PopularMovies(popularMovie).$remove();
+
 		expect($httpBackend.flush).not.toThrow();
 	});
 });
