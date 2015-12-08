@@ -38,4 +38,25 @@ describe('MovieCore', function () {
 		expect($httpBackend.flush).not.toThrow();
 	});
 
+	it('shoudl get popular movie by id', function () {
+
+		$httpBackend.expectGET('popular/tt0076759').respond(200);
+
+		PopularMovies.get({ movieId: 'tt0076759' });
+
+		expect($httpBackend.flush).not.toThrow();
+	});
+
+	it('should update popular movie', function () {
+
+		$httpBackend.expectPUT('popular')
+			.respond(200);
+
+		var popularMovei = new PopularMovies({
+			movieId: 'tt0076759',
+			description: 'great movie!'
+		});
+		popularMovei.$update();
+		expect($httpBackend.flush).not.toThrow();
+	});
 });
