@@ -18,7 +18,8 @@
   "dependencies": {
     "jasmine-core": "~2.3.4",
     "angular": "angularjs#~1.4.8",
-    "angular-mocks": "~1.4.8"
+    "angular-mocks": "~1.4.8",
+    "angular-resource": "~1.4.8"
   },
   "devDependencies": {
     "gulp": "~3.9.0"
