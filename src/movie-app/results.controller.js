@@ -6,5 +6,8 @@ angular.module('movieApp')
 		omdbApi.search(query)
 			.then(function (data) {
 				$scope.results = data.Search;
+			})
+			.catch(function () {
+				$scope.errorMessage = 'Fail!';
 			});
 	});

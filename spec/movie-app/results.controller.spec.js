@@ -47,4 +47,22 @@ describe('Results Controller', function () {
 
 		expect(omdbApi.search).toHaveBeenCalledWith('star wars');
 	});
+	
+
+	it('should set error status message', function () {
+
+		spyOn(omdbApi, 'search').and.callFake(function () {
+			var deferred = $q.defer();
+			deferred.reject(); // make it fail
+			return deferred.promise;
+		});
+
+		$location.search('q', 'star wars');
+
+		$controller('ResultsController', { $scope: $scope });
+
+		$rootScope.$apply(); // trigger angular event cycle so promise gets resolved
+
+		expect($scope.errorMessage).toBe('Fail!');
+	});
 });
