@@ -1,6 +1,9 @@
 angular.module('movieApp')
 	.controller('ResultsController', function ($scope, $location, omdbApi) {
-		omdbApi.search('star wars')
+
+		var query = $location.search().q;
+
+		omdbApi.search(query)
 			.then(function (data) {
 				$scope.results = data.Search;
 			});

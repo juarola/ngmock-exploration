@@ -13,16 +13,18 @@ describe('Results Controller', function () {
 	var $q;
 	var $rootScope;
 	var omdbApi;
+	var $location;
 
 	beforeEach(module('omdb'));
 	beforeEach(module('movieApp'));
 
-	beforeEach(inject(function (_$controller_, _$q_, _$rootScope_, _omdbApi_) {
+	beforeEach(inject(function (_$controller_, _$q_, _$rootScope_, _$location_, _omdbApi_) {
 		$controller = _$controller_;
 		$scope = {};
 		$q = _$q_;
 		$rootScope = _$rootScope_;
 		omdbApi = _omdbApi_;
+		$location = _$location_;
 	}));
 
 	it('should load search results', function () {
@@ -33,14 +35,16 @@ describe('Results Controller', function () {
 			return deferred.promise;
 		});
 
+		$location.search('q', 'star wars');
+
 		$controller('ResultsController', { $scope: $scope });
-		
+
 		$rootScope.$apply(); // trigger angular event cycle so promise gets resolved
 
 		expect($scope.results[0].Title).toBe(results.Search[0].Title);
 		expect($scope.results[1].Title).toBe(results.Search[1].Title);
 		expect($scope.results[2].Title).toBe(results.Search[2].Title);
-		
+
 		expect(omdbApi.search).toHaveBeenCalledWith('star wars');
 	});
 });
