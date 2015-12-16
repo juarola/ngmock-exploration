@@ -21,7 +21,8 @@
     "angular-mocks": "~1.4.8",
     "angular-resource": "~1.4.8",
     "bootstrap": "~3.3.6",
-    "angular-bootstrap": "~0.14.3"
+    "angular-bootstrap": "~0.14.3",
+    "angular-route": "~1.4.8"
   },
   "devDependencies": {
     "gulp": "~3.9.0",

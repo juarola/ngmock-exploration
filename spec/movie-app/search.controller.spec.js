@@ -6,22 +6,10 @@ describe('Search Controller', function () {
 	beforeEach(module('movieApp'));
 
 	beforeEach(inject(function (_$controller_, _$location_) {
-		// $location = {
-		// 	url: ''
-		// };
+		
 		$location = _$location_;
 		$scope = {};
 
-		// var fn = function ($scope) {
-		// 	$scope.search = function () {
-		// 		if ($scope.query) {
-		// 			// $location.url = '/results?q=star%20wars';
-		// 			$location.path('/results').search('q', $scope.query);
-		// 		}
-		// 	}
-		// };
-		
-		// _$controller_(fn, { $scope: $scope, $location: $location });
 		_$controller_('SearchController', { $scope: $scope, $location: $location });
 	}));
 
